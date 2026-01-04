@@ -1,0 +1,31 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+
+# Code
+*.cs.meta
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Python scripts (dev tools)
+*.py
+*.pyc
+__pycache__/
+
+# Documentation (as requested)
+docs/
+
+# Logs
+*.log
+
+# Local backups
+BACKUP_*/

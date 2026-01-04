@@ -1,0 +1,104 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>7.3</LangVersion>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+    </RestoreAdditionalProjectSources>
+    <RootNamespace>SimpleSingleplayerRespawn</RootNamespace>
+    <AssemblyName>SimpleSingleplayerRespawn</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="BACKUP_*/**" />
+    <EmbeddedResource Remove="BACKUP_*/**" />
+    <None Remove="BACKUP_*/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- MelonLoader References -->
+    <Reference Include="MelonLoader">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\net6\MelonLoader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\net6\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Game Assembly References (IL2Cpp) -->
+    <Reference Include="Assembly-CSharp">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppFishNet.Runtime">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\Il2CppFishNet.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppNewtonsoft.Json">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\Il2CppNewtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    
+    <!-- Steamworks.NET for P2P Networking -->
+    <Reference Include="Il2Cppcom.rlabrecque.steamworks.net">
+      <HintPath>E:\SteamLibrary\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\Il2Cppcom.rlabrecque.steamworks.net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <!-- Copy to Il2Cpp game directory Mods folder (direct install) -->
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="E:\SteamLibrary\steamapps\common\Schedule I\Mods" Condition="Exists('E:\SteamLibrary\steamapps\common\Schedule I\Mods')" />
+    <Message Text="Copied $(TargetFileName) to Il2Cpp Mods folder" Importance="high" Condition="Exists('E:\SteamLibrary\steamapps\common\Schedule I\Mods')" />
+
+    <!-- Copy to Mono game directory -->
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="E:\SteamLibrary\steamapps\common\Schedule I - Mono\Mods" Condition="Exists('E:\SteamLibrary\steamapps\common\Schedule I - Mono\Mods')" />
+    <Message Text="Copied $(TargetFileName) to Mono Mods folder" Importance="high" Condition="Exists('E:\SteamLibrary\steamapps\common\Schedule I - Mono\Mods')" />
+  </Target>
+
+</Project>
